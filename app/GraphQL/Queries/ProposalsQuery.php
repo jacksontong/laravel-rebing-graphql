@@ -28,10 +28,14 @@ class ProposalsQuery extends Query
     {
         return [
             'page' => [
-                'type' => Type::int(),
+                'type' => Type::nonNull(Type::int()),
+                'defaultValue' => 1,
+                'description' => 'Defaults to 1',
             ],
             'limit' => [
-                'type' => Type::int(),
+                'type' => Type::nonNull(Type::int()),
+                'defaultValue' => 10,
+                'description' => 'Defaults to 10',
             ],
         ];
     }
@@ -44,8 +48,8 @@ class ProposalsQuery extends Query
 
         return Proposal::select($select)
             ->paginate(
-                perPage: $args['limit'] ?? 10,
-                page: $args['page'] ?? 1,
+                perPage: $args['limit'],
+                page: $args['page'],
             );
     }
 }

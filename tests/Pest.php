@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 /*
@@ -42,7 +44,9 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function authenticate(User $user = null)
 {
-    // ..
+    return Sanctum::actingAs(
+        $user ?: User::factory()->create()
+    );
 }
