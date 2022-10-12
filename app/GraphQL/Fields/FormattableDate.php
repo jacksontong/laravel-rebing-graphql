@@ -21,7 +21,7 @@ class FormattableDate extends Field
 
     public function type(): Type
     {
-        return Type::nonNull(Type::string());
+        return Type::string();
     }
 
     public function args(): array

@@ -45,8 +45,10 @@ class ProposalsQuery extends Query
         /** @var SelectFields $fields */
         $fields = $getSelectFields();
         $select = $fields->getSelect();
+        $relations = $fields->getRelations();
 
-        return Proposal::select($select)
+        return Proposal::with($relations)
+            ->select($select)
             ->paginate(
                 perPage: $args['limit'],
                 page: $args['page'],

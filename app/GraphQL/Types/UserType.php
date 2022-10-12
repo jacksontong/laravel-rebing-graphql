@@ -5,17 +5,16 @@ declare(strict_types=1);
 namespace App\GraphQL\Types;
 
 use App\GraphQL\Fields\FormattableDate;
-use App\Models\Proposal;
+use App\Models\User;
 use GraphQL\Type\Definition\Type;
-use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Type as GraphQLType;
 
-class ProposalType extends GraphQLType
+class UserType extends GraphQLType
 {
     protected $attributes = [
-        'name' => 'Proposal',
-        'description' => 'A proposal.',
-        'model' => Proposal::class,
+        'name' => 'User',
+        'description' => 'A user',
+        'model' => User::class,
     ];
 
     public function fields(): array
@@ -24,24 +23,21 @@ class ProposalType extends GraphQLType
             'id' => [
                 'type' => Type::nonNull(Type::ID()),
             ],
-            'title' => [
+            'name' => [
                 'type' => Type::nonNull(Type::string()),
             ],
+            'email' => [
+                'type' => Type::nonNull(Type::string()),
+            ],
+            'emailVerifiedAt' => new FormattableDate([
+                'alias' => 'email_verified_at'
+            ]),
             'createdAt' => new FormattableDate([
                 'alias' => 'created_at'
             ]),
             'updatedAt' => new FormattableDate([
                 'alias' => 'updated_at'
             ]),
-            'userId' => [
-                'type' => Type::nonNull(Type::int()),
-                'alias' => 'user_id',
-            ],
-
-            /* RELATIONS */
-            'user' => [
-                'type' => GraphQL::type('User'),
-            ],
         ];
     }
 }

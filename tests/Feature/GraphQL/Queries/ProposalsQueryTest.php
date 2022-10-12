@@ -11,15 +11,15 @@ it('fetches proposal', function () {
 
     post(route('graphql'), [
         'query' => <<<GQL
-{
-    proposals {
-        data {
-            id
-            createdAt
+        {
+            proposals {
+                data {
+                    id
+                    createdAt
+                }
+                total
+            }
         }
-        total
-    }
-}
 GQL
     ])
         ->assertJson([
@@ -42,6 +42,40 @@ GQL
                         ],
                     ],
                     'total'
+                ],
+            ],
+        ]);
+});
+
+it('fetches proposals with user', function () {
+    $user = authenticate();
+    $proposals = Proposal::factory(10)
+        ->for($user)
+        ->create();
+
+    post(route('graphql'), [
+        'query' => <<<GQL
+        {
+            proposals {
+                data {
+                    user {
+                        id
+                    }
+                }
+            }
+        }
+GQL
+    ])
+        ->assertJson([
+            'data' => [
+                'proposals' => [
+                    'data' => [
+                        [
+                            'user' => [
+                                'id' => $proposals[0]->user_id,
+                            ],
+                        ],
+                    ],
                 ],
             ],
         ]);

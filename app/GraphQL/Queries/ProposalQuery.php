@@ -39,8 +39,10 @@ class ProposalQuery extends Query
         /** @var SelectFields $fields */
         $fields = $getSelectFields();
         $select = $fields->getSelect();
+        $with = $fields->getRelations();
 
         return Proposal::select($select)
+            ->with($with)
             ->findOrFail($args['id']);
     }
 }

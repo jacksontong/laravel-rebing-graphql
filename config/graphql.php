@@ -47,6 +47,7 @@ return [
             // The types only available in this schema
             'types' => [
                 App\GraphQL\Types\ProposalType::class,
+                App\GraphQL\Types\UserType::class,
             ],
 
             // Laravel HTTP middleware
