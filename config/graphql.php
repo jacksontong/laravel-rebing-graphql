@@ -13,7 +13,7 @@ return [
 
         // Any middleware for the graphql route group
         // This middleware will apply to all schemas
-        'middleware' => [],
+        'middleware' => ['api'],
 
         // Additional route group attributes
         //
@@ -35,43 +35,6 @@ return [
         'enable' => true,
     ],
 
-    // The schemas for query and/or mutation. It expects an array of schemas to provide
-    // both the 'query' fields and the 'mutation' fields.
-    //
-    // You can also provide a middleware that will only apply to the given schema
-    //
-    // Example:
-    //
-    //  'schemas' => [
-    //      'default' => [
-    //          'controller' => MyController::class . '@method',
-    //          'query' => [
-    //              App\GraphQL\Queries\UsersQuery::class,
-    //          ],
-    //          'mutation' => [
-    //
-    //          ]
-    //      ],
-    //      'user' => [
-    //          'query' => [
-    //              App\GraphQL\Queries\ProfileQuery::class,
-    //          ],
-    //          'mutation' => [
-    //
-    //          ],
-    //          'middleware' => ['auth'],
-    //      ],
-    //      'user/me' => [
-    //          'query' => [
-    //              App\GraphQL\Queries\MyProfileQuery::class,
-    //          ],
-    //          'mutation' => [
-    //
-    //          ],
-    //          'middleware' => ['auth'],
-    //      ],
-    //  ]
-    //
     'schemas' => [
         'default' => [
             'query' => [
@@ -87,7 +50,7 @@ return [
             ],
 
             // Laravel HTTP middleware
-            'middleware' => null,
+            'middleware' => ['auth:sanctum'],
 
             // Which HTTP methods to support; must be given in UPPERCASE!
             'method' => ['GET', 'POST'],
@@ -164,7 +127,7 @@ return [
     'graphiql' => [
         'prefix' => 'graphiql', // Do NOT use a leading slash
         'controller' => \Rebing\GraphQL\GraphQLController::class . '@graphiql',
-        'middleware' => [],
+        'middleware' => ['web'],
         'view' => 'graphql::graphiql',
         'display' => env('ENABLE_GRAPHIQL', true),
     ],
