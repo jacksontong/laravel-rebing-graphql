@@ -3,7 +3,7 @@
 use App\Models\Proposal;
 use function Pest\Laravel\post;
 
-it('fetch proposal', function () {
+it('fetches proposal', function () {
     $user = authenticate();
     $proposal = Proposal::factory()
         ->for($user)
