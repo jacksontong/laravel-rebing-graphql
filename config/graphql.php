@@ -75,14 +75,15 @@ return [
     'schemas' => [
         'default' => [
             'query' => [
-                // ExampleQuery::class,
+                App\GraphQL\Queries\ProposalQuery::class,
+                App\GraphQL\Queries\ProposalsQuery::class,
             ],
             'mutation' => [
                 // ExampleMutation::class,
             ],
             // The types only available in this schema
             'types' => [
-                // ExampleType::class,
+                App\GraphQL\Types\ProposalType::class,
             ],
 
             // Laravel HTTP middleware
