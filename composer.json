@@ -8,9 +8,11 @@
         "php": "^8.0.2",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
+        "laravel/jetstream": "^2.12",
         "laravel/sanctum": "^3.0",
         "laravel/telescope": "^4.9",
-        "laravel/tinker": "^2.7"
+        "laravel/tinker": "^2.7",
+        "livewire/livewire": "^2.5"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",
@@ -19,6 +21,8 @@
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^6.1",
+        "pestphp/pest": "^1.16",
+        "pestphp/pest-plugin-laravel": "^1.1",
         "phpunit/phpunit": "^9.5.10",
         "spatie/laravel-ignition": "^1.0"
     },
