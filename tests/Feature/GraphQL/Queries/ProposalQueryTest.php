@@ -41,6 +41,7 @@ it('fetches proposal with user', function () {
             proposal(id: $proposal->id) {
                 user {
                     id
+                    name
                 }
             }
         }
@@ -51,6 +52,7 @@ GQL
                 'proposal' => [
                     'user' => [
                         'id' => $user->id,
+                        'name' => $user->name,
                     ],
                 ],
             ],

@@ -60,6 +60,7 @@ it('fetches proposals with user', function () {
                 data {
                     user {
                         id
+                        name
                     }
                 }
             }
@@ -73,6 +74,7 @@ GQL
                         [
                             'user' => [
                                 'id' => $proposals[0]->user_id,
+                                'name' => $proposals[0]->user->name,
                             ],
                         ],
                     ],
