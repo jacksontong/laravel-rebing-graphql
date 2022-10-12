@@ -42,12 +42,13 @@ return [
                 App\GraphQL\Queries\ProposalsQuery::class,
             ],
             'mutation' => [
-                // ExampleMutation::class,
+                App\GraphQL\Mutations\CreateProposalMutation::class,
             ],
             // The types only available in this schema
             'types' => [
                 App\GraphQL\Types\ProposalType::class,
                 App\GraphQL\Types\UserType::class,
+                App\GraphQL\Inputs\CreateProposalInput::class,
             ],
 
             // Laravel HTTP middleware
