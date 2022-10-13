@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Mutations;
 
+use App\GraphQL\AuthorizeProposal;
 use App\Models\Proposal;
 use Closure;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
-use Illuminate\Support\Facades\Auth;
 use Rebing\GraphQL\Support\Mutation;
 use Rebing\GraphQL\Support\SelectFields;
 
 class DeleteProposalMutation extends Mutation
 {
+    use AuthorizeProposal;
+
     protected $attributes = [
         'name' => 'deleteProposal',
         'description' => 'Delete a proposal by id.',
@@ -22,14 +24,6 @@ class DeleteProposalMutation extends Mutation
     public function type(): Type
     {
         return Type::id();
-    }
-
-    public function authorize($root, array $args, $ctx, ResolveInfo $resolveInfo = null, Closure $getSelectFields = null): bool
-    {
-        $proposal = Proposal::select('user_id')
-            ->find($args['id']);
-
-        return $proposal && $proposal->user_id == Auth::id();
     }
 
     public function args(): array
