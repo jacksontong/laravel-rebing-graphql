@@ -22,11 +22,6 @@ class CreateProposalInput extends InputType
                 'description' => 'Proposal title',
                 'rules' => ['required', 'string', 'min:5', 'max:255']
             ],
-            'userId' => [
-                'type' => Type::nonNull(Type::int()),
-                'description' => 'User id',
-                'rules' => ['required', 'integer', 'exists:users,id']
-            ],
         ];
     }
 }

@@ -8,6 +8,7 @@ use App\Models\Proposal;
 use Closure;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
+use Illuminate\Support\Facades\Auth;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Mutation;
 use Rebing\GraphQL\Support\SelectFields;
@@ -36,7 +37,7 @@ class CreateProposalMutation extends Mutation
     {
         return Proposal::create([
             'title' => $args['proposal']['title'],
-            'user_id' => $args['proposal']['userId'],
+            'user_id' => Auth::id(),
         ]);
     }
 }

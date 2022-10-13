@@ -4,10 +4,9 @@ use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\post;
 
 const CREATE_PROPOSAL_MUTATION = <<<'GQL'
-mutation createProposal($title: String!, $userId: Int!) {
+mutation createProposal($title: String!) {
     createProposal(proposal: {
         title: $title
-        userId: $userId
     }) {
         id
         title
@@ -22,8 +21,7 @@ it('validates input', function () {
     post(route('graphql'), [
         'query' => CREATE_PROPOSAL_MUTATION,
         'variables' => [
-            'title' => '123',
-            'userId' => 123,
+            'title' => '123'
         ],
     ])
         ->assertJsonStructure([
@@ -32,7 +30,6 @@ it('validates input', function () {
                     'extensions' => [
                         'validation' => [
                             'proposal.title',
-                            'proposal.userId',
                         ],
                     ],
                 ]
@@ -43,7 +40,6 @@ it('validates input', function () {
         'query' => CREATE_PROPOSAL_MUTATION,
         'variables' => [
             'title' => 'test title',
-            'userId' => $user->id,
         ],
     ])
         ->assertJsonMissing([
@@ -52,7 +48,6 @@ it('validates input', function () {
                     'extensions' => [
                         'validation' => [
                             'proposal.title',
-                            'proposal.userId',
                         ],
                     ],
                 ]
@@ -67,7 +62,6 @@ it('creates proposal', function () {
         'query' => CREATE_PROPOSAL_MUTATION,
         'variables' => [
             'title' => 'test title',
-            'userId' => $user->id,
         ],
     ])
         ->assertJson([
