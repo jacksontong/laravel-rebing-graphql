@@ -3,7 +3,7 @@
 use App\Models\Proposal;
 use function Pest\Laravel\post;
 
-const FETCH_PROPOSALS_QUERY = <<<'GQL'
+const FETCH_PROPOSALS_QUERY = /** @lang GraphQL */'
 {
     proposals {
         data {
@@ -17,7 +17,7 @@ const FETCH_PROPOSALS_QUERY = <<<'GQL'
         total
     }
 }
-GQL;
+';
 
 it('fetches proposal', function () {
     $user = authenticate();

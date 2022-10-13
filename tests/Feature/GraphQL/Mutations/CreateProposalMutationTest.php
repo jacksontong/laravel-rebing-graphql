@@ -3,7 +3,7 @@
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\post;
 
-const CREATE_PROPOSAL_MUTATION = <<<'GQL'
+const CREATE_PROPOSAL_MUTATION = /** @lang GraphQL */'
 mutation createProposal($title: String!) {
     createProposal(proposal: {
         title: $title
@@ -13,7 +13,7 @@ mutation createProposal($title: String!) {
         userId
     }
 }
-GQL;
+';
 
 it('validates input', function () {
     $user = authenticate();

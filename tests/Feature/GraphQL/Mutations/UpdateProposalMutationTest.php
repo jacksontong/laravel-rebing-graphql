@@ -4,7 +4,7 @@ use App\Models\Proposal;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\post;
 
-const UPDATE_PROPOSAL_MUTATION = <<<'GQL'
+const UPDATE_PROPOSAL_MUTATION = /** @lang GraphQL */'
 mutation updateProposal($id: ID!, $title: String) {
     updateProposal(id: $id, proposal: {
         title: $title
@@ -17,7 +17,7 @@ mutation updateProposal($id: ID!, $title: String) {
         }
     }
 }
-GQL;
+';
 
 it('updates a proposal by id', function () {
     $user = authenticate();

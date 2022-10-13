@@ -3,7 +3,7 @@
 use App\Models\Proposal;
 use function Pest\Laravel\post;
 
-const FIND_PROPOSAL_QUERY = <<<'GQL'
+const FIND_PROPOSAL_QUERY = /** @lang GraphQL */'
 query findProposal($id: ID!) {
     proposal(id: $id) {
         id
@@ -15,7 +15,7 @@ query findProposal($id: ID!) {
         }
     }
 }
-GQL;
+';
 
 it('fetches proposal', function () {
     $user = authenticate();

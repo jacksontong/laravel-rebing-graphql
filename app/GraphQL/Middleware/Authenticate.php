@@ -6,8 +6,8 @@ namespace App\GraphQL\Middleware;
 
 use Closure;
 use GraphQL\Type\Definition\ResolveInfo;
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Auth\Factory;
+use Rebing\GraphQL\Error\AuthorizationError;
 use Rebing\GraphQL\Support\Middleware;
 
 class Authenticate extends Middleware
@@ -18,7 +18,7 @@ class Authenticate extends Middleware
     }
 
     /**
-     * @throws AuthenticationException
+     * @throws AuthorizationError
      */
     public function handle($root, array $args, $context, ResolveInfo $info, Closure $next)
     {
@@ -31,7 +31,7 @@ class Authenticate extends Middleware
      * Determine if the user is logged in to any of the given guards.
      * @param array $guards
      * @return void
-     * @throws AuthenticationException
+     * @throws AuthorizationError
      */
     protected function authenticate(array $guards): void
     {
@@ -47,8 +47,6 @@ class Authenticate extends Middleware
             }
         }
 
-        throw new AuthenticationException(
-            guards: $guards,
-        );
+        throw new AuthorizationError("Unauthenticated");
     }
 }

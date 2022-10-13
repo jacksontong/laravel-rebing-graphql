@@ -5,11 +5,11 @@ use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\assertDatabaseMissing;
 use function Pest\Laravel\post;
 
-const DELETE_PROPOSAL_MUTATION = <<<'GQL'
+const DELETE_PROPOSAL_MUTATION = /** @lang GraphQL */'
 mutation deleteProposal($id: ID!) {
     deleteProposal(id: $id)
 }
-GQL;
+';
 
 it('deletes a proposal', function () {
     $user = authenticate();

@@ -1,0 +1,111 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Mutation {
+    "Create a new proposal."
+    createProposal(proposal: CreateProposalInput): Proposal
+    "Delete a proposal by id."
+    deleteProposal(
+        "Proposal id"
+        id: ID!
+    ): ID
+    "Update a proposal by id."
+    updateProposal(
+        "Proposal id."
+        id: ID!,
+        proposal: UpdateProposalInput
+    ): Proposal
+}
+
+"A proposal."
+type Proposal {
+    "A field that can output a date in all sorts of ways."
+    createdAt(
+        "Defaults to Y-m-d H:i:s"
+        format: String = "Y-m-d H:i:s",
+        relative: Boolean = false
+    ): String
+    id: ID!
+    title: String!
+    "A field that can output a date in all sorts of ways."
+    updatedAt(
+        "Defaults to Y-m-d H:i:s"
+        format: String = "Y-m-d H:i:s",
+        relative: Boolean = false
+    ): String
+    user: User
+    userId: Int!
+}
+
+type ProposalPagination {
+    "Current page of the cursor"
+    current_page: Int!
+    "List of items on the current page"
+    data: [Proposal]
+    "Number of the first item returned"
+    from: Int
+    "Determines if cursor has more pages after the current page"
+    has_more_pages: Boolean!
+    "The last page (number of pages)"
+    last_page: Int!
+    "Number of items returned per page"
+    per_page: Int!
+    "Number of the last item returned"
+    to: Int
+    "Number of total items selected by the query"
+    total: Int!
+}
+
+type Query {
+    "Get the current authenticated user."
+    me: User
+    "A query"
+    proposal(id: ID!): Proposal
+    "A query"
+    proposals(
+        "Defaults to 10"
+        limit: Int! = 10,
+        "Defaults to 1"
+        page: Int! = 1
+    ): ProposalPagination
+}
+
+"A user"
+type User {
+    "A field that can output a date in all sorts of ways."
+    createdAt(
+        "Defaults to Y-m-d H:i:s"
+        format: String = "Y-m-d H:i:s",
+        relative: Boolean = false
+    ): String
+    email: String!
+    "A field that can output a date in all sorts of ways."
+    emailVerifiedAt(
+        "Defaults to Y-m-d H:i:s"
+        format: String = "Y-m-d H:i:s",
+        relative: Boolean = false
+    ): String
+    id: ID!
+    name: String!
+    "A field that can output a date in all sorts of ways."
+    updatedAt(
+        "Defaults to Y-m-d H:i:s"
+        format: String = "Y-m-d H:i:s",
+        relative: Boolean = false
+    ): String
+}
+
+"An example input"
+input CreateProposalInput {
+    "Proposal title"
+    title: String!
+}
+
+input UpdateProposalInput {
+    "Proposal title"
+    title: String
+}

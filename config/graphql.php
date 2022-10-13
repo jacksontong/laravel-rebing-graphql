@@ -38,6 +38,7 @@ return [
     'schemas' => [
         'default' => [
             'query' => [
+                App\GraphQL\Queries\MeQuery::class,
                 App\GraphQL\Queries\ProposalQuery::class,
                 App\GraphQL\Queries\ProposalsQuery::class,
             ],
