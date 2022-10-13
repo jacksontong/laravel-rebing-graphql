@@ -3,6 +3,22 @@
 use App\Models\Proposal;
 use function Pest\Laravel\post;
 
+const FETCH_PROPOSALS_QUERY = <<<'GQL'
+{
+    proposals {
+        data {
+            id
+            title
+            user {
+                id
+                name
+            }
+        }
+        total
+    }
+}
+GQL;
+
 it('fetches proposal', function () {
     $user = authenticate();
     $proposals = Proposal::factory(10)
@@ -10,17 +26,7 @@ it('fetches proposal', function () {
         ->create();
 
     post(route('graphql'), [
-        'query' => <<<GQL
-        {
-            proposals {
-                data {
-                    id
-                    createdAt
-                }
-                total
-            }
-        }
-GQL
+        'query' => FETCH_PROPOSALS_QUERY,
     ])
         ->assertJson([
             'data' => [
@@ -54,18 +60,7 @@ it('fetches proposals with user', function () {
         ->create();
 
     post(route('graphql'), [
-        'query' => <<<GQL
-        {
-            proposals {
-                data {
-                    user {
-                        id
-                        name
-                    }
-                }
-            }
-        }
-GQL
+        'query' => FETCH_PROPOSALS_QUERY,
     ])
         ->assertJson([
             'data' => [
@@ -81,4 +76,20 @@ GQL
                 ],
             ],
         ]);
+});
+
+it("doesn't fetch proposals of other", function () {
+    $user = authenticate();
+    Proposal::factory(3)
+        ->for($user)
+        ->create();
+    $proposal = Proposal::factory()
+        ->create();
+
+    $response = post(route('graphql'), [
+        'query' => FETCH_PROPOSALS_QUERY,
+    ]);
+
+    expect($response->collect('data.proposals.data'))
+        ->contains('id', $proposal->id)->toBeFalse();
 });

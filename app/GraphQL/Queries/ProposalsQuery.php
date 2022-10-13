@@ -8,6 +8,7 @@ use App\Models\Proposal;
 use Closure;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
+use Illuminate\Support\Facades\Auth;
 use Rebing\GraphQL\Support\Facades\GraphQL;
 use Rebing\GraphQL\Support\Query;
 use Rebing\GraphQL\Support\SelectFields;
@@ -49,6 +50,7 @@ class ProposalsQuery extends Query
 
         return Proposal::with($relations)
             ->select($select)
+            ->where('user_id', Auth::id())
             ->paginate(
                 perPage: $args['limit'],
                 page: $args['page'],

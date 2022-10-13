@@ -61,3 +61,25 @@ it('fetches proposal with user', function () {
             ],
         ]);
 });
+
+it("doesn't allow to fetch proposal of other", function () {
+    $user = authenticate();
+    $proposal = Proposal::factory()
+        ->create();
+
+    post(route('graphql'), [
+        'query' => FIND_PROPOSAL_QUERY,
+        'variables' => [
+            'id' => $proposal->id,
+        ],
+    ])
+        ->assertJson([
+            'errors' => [
+                [
+                    'extensions' => [
+                        'category' => 'authorization',
+                    ],
+                ],
+            ],
+        ]);
+});
