@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Testing\TestResponse;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        TestResponse::macro('assertGqlValidationErrorFor', function ($key) {
+            $this->assertJsonStructure([
+                'errors' => [
+                    [
+                        'extensions' => [
+                            'validation' => [
+                                $key,
+                            ],
+                        ],
+                    ],
+                ],
+            ]);
+        });
     }
 }

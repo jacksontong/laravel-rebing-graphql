@@ -24,35 +24,7 @@ it('validates input', function () {
             'title' => '123'
         ],
     ])
-        ->assertJsonStructure([
-            'errors' => [
-                [
-                    'extensions' => [
-                        'validation' => [
-                            'proposal.title',
-                        ],
-                    ],
-                ]
-            ],
-        ]);
-
-    post(route('graphql'), [
-        'query' => CREATE_PROPOSAL_MUTATION,
-        'variables' => [
-            'title' => 'test title',
-        ],
-    ])
-        ->assertJsonMissing([
-            'errors' => [
-                [
-                    'extensions' => [
-                        'validation' => [
-                            'proposal.title',
-                        ],
-                    ],
-                ]
-            ],
-        ]);
+        ->assertGqlValidationErrorFor('proposal.title');
 });
 
 it('creates proposal', function () {

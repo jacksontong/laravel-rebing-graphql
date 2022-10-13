@@ -88,17 +88,7 @@ it('validates input', function ($title) {
             'title' => $title,
         ]
     ])
-        ->assertJsonStructure([
-            'errors' => [
-                [
-                    'extensions' => [
-                        'validation' => [
-                            'proposal.title',
-                        ],
-                    ],
-                ]
-            ],
-        ]);
+        ->assertGqlValidationErrorFor('proposal.title');
 })->with([
     null,
     '2',
