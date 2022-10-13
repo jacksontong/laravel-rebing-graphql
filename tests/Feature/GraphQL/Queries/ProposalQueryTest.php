@@ -73,13 +73,5 @@ it("doesn't allow to fetch proposal of other", function () {
             'id' => $proposal->id,
         ],
     ])
-        ->assertJson([
-            'errors' => [
-                [
-                    'extensions' => [
-                        'category' => 'authorization',
-                    ],
-                ],
-            ],
-        ]);
+        ->assertGqlUnauthorized();
 });

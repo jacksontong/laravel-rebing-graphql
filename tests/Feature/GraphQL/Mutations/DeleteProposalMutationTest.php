@@ -45,15 +45,7 @@ it("doesn't delete a proposal belong to the other", function () {
             'id' => $proposal->id,
         ],
     ])
-        ->assertJson([
-            'errors' => [
-                [
-                    'extensions' => [
-                        'category' => 'authorization',
-                    ],
-                ],
-            ],
-        ]);
+        ->assertGqlUnauthorized();
 
     assertDatabaseHas('proposals', [
         'id' => $proposal->id,

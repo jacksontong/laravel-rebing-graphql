@@ -25,13 +25,24 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         TestResponse::macro('assertGqlValidationErrorFor', function ($key) {
-            $this->assertJsonStructure([
+            return $this->assertJsonStructure([
                 'errors' => [
                     [
                         'extensions' => [
                             'validation' => [
                                 $key,
                             ],
+                        ],
+                    ],
+                ],
+            ]);
+        });
+        TestResponse::macro('assertGqlUnauthorized', function () {
+            return $this->assertJson([
+                'errors' => [
+                    [
+                        'extensions' => [
+                            'category' => 'authorization',
                         ],
                     ],
                 ],

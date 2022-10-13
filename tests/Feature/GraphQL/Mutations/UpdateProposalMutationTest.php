@@ -59,15 +59,7 @@ it("doesn't allow to update proposal of the other", function () {
             'title' => 'new title',
         ]
     ])
-        ->assertJson([
-            'errors' => [
-                [
-                    'extensions' => [
-                        'category' => 'authorization',
-                    ],
-                ],
-            ],
-        ]);
+        ->assertGqlUnauthorized();
 
     assertDatabaseHas('proposals', [
         'id' => $proposal->id,
