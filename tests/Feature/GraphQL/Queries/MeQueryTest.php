@@ -32,6 +32,7 @@ it("doesn't allow unauthenticated user to access", function () {
     post(route('graphql'), [
         'query' => ME_QUERY,
     ])
+        ->assertGqlUnauthorized()
         ->assertJson([
             'data' => [
                 'me' => null,
