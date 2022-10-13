@@ -43,11 +43,13 @@ return [
             ],
             'mutation' => [
                 App\GraphQL\Mutations\CreateProposalMutation::class,
+                App\GraphQL\Mutations\DeleteProposalMutation::class,
             ],
             // The types only available in this schema
             'types' => [
-                App\GraphQL\Types\ProposalType::class,
                 App\GraphQL\Types\UserType::class,
+                /* PROPOSAL */
+                App\GraphQL\Types\ProposalType::class,
                 App\GraphQL\Inputs\CreateProposalInput::class,
             ],
 

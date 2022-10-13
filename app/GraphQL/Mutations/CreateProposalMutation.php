@@ -17,6 +17,7 @@ class CreateProposalMutation extends Mutation
 {
     protected $attributes = [
         'name' => 'createProposal',
+        'description' => 'Create a new proposal.',
     ];
 
     public function type(): Type
