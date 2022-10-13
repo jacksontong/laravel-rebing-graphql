@@ -3,6 +3,20 @@
 use App\Models\Proposal;
 use function Pest\Laravel\post;
 
+const FIND_PROPOSAL_QUERY = <<<'GQL'
+query findProposal($id: ID!) {
+    proposal(id: $id) {
+        id
+        title
+        userId
+        user {
+            id
+            name
+        }
+    }
+}
+GQL;
+
 it('fetches proposal', function () {
     $user = authenticate();
     $proposal = Proposal::factory()
@@ -10,23 +24,18 @@ it('fetches proposal', function () {
         ->create();
 
     post(route('graphql'), [
-        'query' => <<<GQL
-        {
-            proposal(id: $proposal->id) {
-                id
-                title
-            }
-        }
-GQL
+        'query' => FIND_PROPOSAL_QUERY,
+        'variables' => [
+            'id' => $proposal->id,
+        ],
     ])
         ->assertJson([
             'data' => [
                 'proposal' => [
                     'id' => $proposal->id,
-                ]
-            ]
-        ])
-        ->assertJsonMissingPath('data.proposal.createdAt');
+                ],
+            ],
+        ]);
 });
 
 it('fetches proposal with user', function () {
@@ -36,16 +45,10 @@ it('fetches proposal with user', function () {
         ->create();
 
     post(route('graphql'), [
-        'query' => <<<GQL
-        {
-            proposal(id: $proposal->id) {
-                user {
-                    id
-                    name
-                }
-            }
-        }
-GQL
+        'query' => FIND_PROPOSAL_QUERY,
+        'variables' => [
+            'id' => $proposal->id,
+        ],
     ])
         ->assertJson([
             'data' => [
