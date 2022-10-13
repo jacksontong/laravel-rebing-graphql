@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\GraphQL\Mutations;
 
 use App\GraphQL\AuthorizeProposal;
+use App\GraphQL\Middleware\Authenticate;
 use App\Models\Proposal;
 use Closure;
 use GraphQL\Type\Definition\ResolveInfo;
@@ -20,6 +21,10 @@ class UpdateProposalMutation extends Mutation
     protected $attributes = [
         'name' => 'updateProposal',
         'description' => 'Update a proposal by id.'
+    ];
+
+    protected $middleware = [
+        Authenticate::class,
     ];
 
     public function type(): Type

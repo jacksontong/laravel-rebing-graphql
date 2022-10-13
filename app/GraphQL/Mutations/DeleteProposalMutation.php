@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\GraphQL\Mutations;
 
 use App\GraphQL\AuthorizeProposal;
+use App\GraphQL\Middleware\Authenticate;
 use App\Models\Proposal;
 use Closure;
 use GraphQL\Type\Definition\ResolveInfo;
@@ -19,6 +20,10 @@ class DeleteProposalMutation extends Mutation
     protected $attributes = [
         'name' => 'deleteProposal',
         'description' => 'Delete a proposal by id.',
+    ];
+
+    protected $middleware = [
+        Authenticate::class,
     ];
 
     public function type(): Type

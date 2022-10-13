@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\GraphQL\Queries;
 
 use App\GraphQL\AuthorizeProposal;
+use App\GraphQL\Middleware\Authenticate;
 use App\Models\Proposal;
 use Closure;
 use GraphQL\Type\Definition\ResolveInfo;
@@ -20,6 +21,10 @@ class ProposalQuery extends Query
     protected $attributes = [
         'name' => 'proposal',
         'description' => 'A query'
+    ];
+
+    protected $middleware = [
+        Authenticate::class,
     ];
 
     public function type(): Type
