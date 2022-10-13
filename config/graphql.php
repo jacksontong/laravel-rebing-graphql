@@ -43,6 +43,7 @@ return [
             ],
             'mutation' => [
                 App\GraphQL\Mutations\CreateProposalMutation::class,
+                App\GraphQL\Mutations\UpdateProposalMutation::class,
                 App\GraphQL\Mutations\DeleteProposalMutation::class,
             ],
             // The types only available in this schema
@@ -51,6 +52,7 @@ return [
                 /* PROPOSAL */
                 App\GraphQL\Types\ProposalType::class,
                 App\GraphQL\Inputs\CreateProposalInput::class,
+                App\GraphQL\Inputs\UpdateProposalInput::class,
             ],
 
             // Laravel HTTP middleware

@@ -7,20 +7,19 @@ namespace App\GraphQL\Inputs;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\InputType;
 
-class CreateProposalInput extends InputType
+class UpdateProposalInput extends InputType
 {
     protected $attributes = [
-        'name' => 'CreateProposalInput',
-        'description' => 'An example input',
+        'name' => 'UpdateProposalInput',
     ];
 
     public function fields(): array
     {
         return [
             'title' => [
-                'type' => Type::nonNull(Type::string()),
+                'type' => Type::string(),
                 'description' => 'Proposal title',
-                'rules' => ['required', 'string', 'min:5', 'max:255'],
+                'rules' => ['string', 'min:5', 'max:255'],
             ],
         ];
     }
